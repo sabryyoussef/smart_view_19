@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        
+        <!-- Automated actions are controlled by config parameters -->
+        <!-- Enable in Settings > Sales > WhatsApp Integration -->
+        
+        <!-- Users can manually create automated actions if needed:
+        
+        1. SO Confirmation Notification:
+           - Model: sale.order
+           - Trigger: On Update
+           - Filter: state = 'sale'
+           - Action: Send WhatsApp (via code)
+           
+        2. Project Creation Notification:
+           - Model: project.project  
+           - Trigger: On Creation
+           - Action: Send WhatsApp (via code)
+           
+        3. Payment Received Notification:
+           - Model: account.payment
+           - Trigger: On Update
+           - Filter: state = 'posted'
+           - Action: Send WhatsApp to related SO partner
+        -->
+
+    </data>
+</odoo>
+

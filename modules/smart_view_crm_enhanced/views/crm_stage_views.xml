@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- CRM Stage Form View Enhancement -->
+    <record id="view_crm_stage_form_enhanced" model="ir.ui.view">
+        <field name="name">crm.stage.form.enhanced</field>
+        <field name="model">crm.stage</field>
+        <field name="inherit_id" ref="crm.crm_stage_form"/>
+        <field name="arch" type="xml">
+            
+            <!-- Add Smart View stage type fields -->
+            <xpath expr="//group[@name='description_group']" position="before">
+                <group string="Smart View Settings" name="smart_view_settings">
+                    <field name="is_site_visit_stage"/>
+                    <field name="is_technical_stage"/>
+                    <field name="is_approval_stage"/>
+                </group>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- CRM Stage Tree View Enhancement -->
+    <record id="view_crm_stage_tree_enhanced" model="ir.ui.view">
+        <field name="name">crm.stage.tree.enhanced</field>
+        <field name="model">crm.stage</field>
+        <field name="inherit_id" ref="crm.crm_stage_tree"/>
+        <field name="arch" type="xml">
+            
+            <xpath expr="//field[@name='sequence']" position="after">
+                <field name="is_site_visit_stage" optional="hide"/>
+                <field name="is_technical_stage" optional="hide"/>
+                <field name="is_approval_stage" optional="hide"/>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>
+

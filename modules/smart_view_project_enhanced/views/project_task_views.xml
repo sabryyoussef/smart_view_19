@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Project Task Form View Enhancement -->
+    <record id="view_task_form_enhanced" model="ir.ui.view">
+        <field name="name">project.task.form.enhanced</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            
+            <!-- Add template badge -->
+            <xpath expr="//sheet" position="before">
+                <widget name="web_ribbon" 
+                        title="From Template" 
+                        bg_color="bg-info"
+                        invisible="not is_template_task"/>
+            </xpath>
+
+            <!-- Add template info -->
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="template_id" 
+                       readonly="1" 
+                       invisible="not template_id"/>
+                <field name="is_template_task" invisible="1"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- Project Task Tree View Enhancement - Temporarily disabled for Odoo 19 compatibility -->
+    <!--
+    <record id="view_task_tree_enhanced" model="ir.ui.view">
+        <field name="name">project.task.tree.enhanced</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_tree2"/>
+        <field name="arch" type="xml">
+            
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="template_id" optional="hide"/>
+                <field name="is_template_task" invisible="1"/>
+            </xpath>
+
+        </field>
+    </record>
+    -->
+
+    <!-- Project Task Search View Enhancement - Temporarily disabled for Odoo 19 compatibility -->
+    <!--
+    <record id="view_task_search_enhanced" model="ir.ui.view">
+        <field name="name">project.task.search.enhanced</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_search_form"/>
+        <field name="arch" type="xml">
+            
+            <xpath expr="//filter[@name='my_tasks']" position="after">
+                <separator/>
+                <filter string="From Template" 
+                        name="template_tasks" 
+                        domain="[('is_template_task', '=', True)]"/>
+                <filter string="Manual Tasks" 
+                        name="manual_tasks" 
+                        domain="[('is_template_task', '=', False)]"/>
+            </xpath>
+
+            <xpath expr="//group" position="inside">
+                <filter string="Template" 
+                        name="group_template" 
+                        context="{'group_by': 'template_id'}"/>
+            </xpath>
+
+        </field>
+    </record>
+    -->
+
+</odoo>
+

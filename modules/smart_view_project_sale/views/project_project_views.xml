@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Project Form View Enhancement -->
+    <record id="view_project_project_form_sale" model="ir.ui.view">
+        <field name="name">project.project.form.sale</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            
+            <!-- Add SO link and project location -->
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="sale_order_id" readonly="1"/>
+                <field name="project_location"/>
+                <field name="is_template" invisible="1"/>
+                <field name="template_name" invisible="not is_template"/>
+            </xpath>
+
+            <!-- Add SO smartbutton -->
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="%(sale.action_orders)d" 
+                        type="action" 
+                        class="oe_stat_button" 
+                        icon="fa-dollar"
+                        invisible="not sale_order_id"
+                        context="{'search_default_project_id': id}">
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_text">Sales Order</span>
+                    </div>
+                </button>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- Project Tree View Enhancement - Temporarily disabled for Odoo 19 compatibility -->
+    <!--
+    <record id="view_project_tree_sale" model="ir.ui.view">
+        <field name="name">project.project.tree.sale</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.view_project"/>
+        <field name="arch" type="xml">
+            
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="sale_order_id" optional="hide"/>
+                <field name="project_location" optional="show"/>
+                <field name="is_template" optional="hide"/>
+            </xpath>
+
+        </field>
+    </record>
+    -->
+
+    <!-- Project Search View Enhancement - Temporarily disabled for Odoo 19 compatibility -->
+    <!--
+    <record id="view_project_search_sale" model="ir.ui.view">
+        <field name="name">project.project.search.sale</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.view_project_project_filter"/>
+        <field name="arch" type="xml">
+            
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="project_location"/>
+                <field name="sale_order_id"/>
+            </xpath>
+
+            <xpath expr="//filter[@name='My Projects']" position="after">
+                <separator/>
+                <filter string="From Sales Order" 
+                        name="from_so" 
+                        domain="[('sale_order_id', '!=', False)]"/>
+                <filter string="Templates" 
+                        name="templates" 
+                        domain="[('is_template', '=', True)]"/>
+                <filter string="Active Projects" 
+                        name="active_projects" 
+                        domain="[('is_template', '=', False)]"/>
+            </xpath>
+
+            <xpath expr="//group" position="inside">
+                <filter string="Sales Order" 
+                        name="group_sale_order" 
+                        context="{'group_by': 'sale_order_id'}"/>
+                <filter string="Location" 
+                        name="group_location" 
+                        context="{'group_by': 'project_location'}"/>
+            </xpath>
+
+        </field>
+    </record>
+    -->
+
+    <!-- Project Templates Menu (Optional) -->
+    <record id="action_project_templates" model="ir.actions.act_window">
+        <field name="name">Project Templates</field>
+        <field name="res_model">project.project</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('is_template', '=', True)]</field>
+        <field name="context">{'default_is_template': True}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first project template
+            </p>
+            <p>
+                Templates can be used to quickly create new projects with pre-defined stages and tasks.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_project_templates"
+              name="Project Templates"
+              parent="project.menu_project_config"
+              action="action_project_templates"
+              sequence="20"/>
+
+</odoo>
+

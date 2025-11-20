@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Sale Order Form View Enhancement -->
+    <record id="view_order_form_project_sale" model="ir.ui.view">
+        <field name="name">sale.order.form.project.sale</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            
+            <!-- REQ-00042 Task 45: Add Create Project button in header -->
+            <xpath expr="//header" position="inside">
+                <button name="action_create_project" 
+                        string="Create Project" 
+                        type="object"
+                        class="btn-primary"
+                        invisible="not can_create_project"
+                        help="Create a project from this sales order"/>
+                <button name="action_view_project" 
+                        string="View Project" 
+                        type="object"
+                        class="btn-secondary"
+                        invisible="not project_id"
+                        help="Open the linked project"/>
+            </xpath>
+
+            <!-- Add project ribbon badge -->
+            <xpath expr="//sheet" position="before">
+                <widget name="web_ribbon" 
+                        title="Project Created" 
+                        bg_color="bg-success"
+                        invisible="not project_id"/>
+            </xpath>
+
+            <!-- Add project fields in header notebook -->
+            <xpath expr="//page[@name='other_information']" position="after">
+                <page string="Project" name="project_info" invisible="not project_id">
+                    <group>
+                        <group>
+                            <field name="project_id" readonly="1"/>
+                            <field name="project_count" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="project_template_id" 
+                                   invisible="project_id"
+                                   help="Select a template to use when creating the project"/>
+                        </group>
+                    </group>
+                    
+                    <group string="Project Details" invisible="not project_id">
+                        <field name="project_id" 
+                               widget="statinfo" 
+                               string="Linked Project"
+                               nolabel="1"/>
+                    </group>
+                </page>
+            </xpath>
+
+            <!-- Add computed field -->
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="can_create_project" invisible="1"/>
+            </xpath>
+
+            <!-- Show project info in smartbutton area -->
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_view_project" 
+                        type="object" 
+                        class="oe_stat_button" 
+                        icon="fa-tasks"
+                        invisible="not project_id">
+                    <field name="project_count" widget="statinfo" string="Project"/>
+                </button>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- Sale Order Tree View Enhancement - Temporarily disabled for Odoo 19 compatibility -->
+    <!--
+    <record id="view_order_tree_project_sale" model="ir.ui.view">
+        <field name="name">sale.order.tree.project.sale</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree"/>
+        <field name="arch" type="xml">
+            
+            <xpath expr="//field[@name='amount_total']" position="after">
+                <field name="project_id" optional="hide"/>
+            </xpath>
+
+        </field>
+    </record>
+    -->
+
+    <!-- Sale Order Search View Enhancement - Temporarily disabled for Odoo 19 compatibility -->
+    <!--
+    <record id="view_sales_order_filter_project_sale" model="ir.ui.view">
+        <field name="name">sale.order.search.project.sale</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+        <field name="arch" type="xml">
+            
+            <xpath expr="//filter[@name='my_quotation']" position="after">
+                <separator/>
+                <filter string="Has Project" 
+                        name="has_project" 
+                        domain="[('project_id', '!=', False)]"/>
+                <filter string="No Project" 
+                        name="no_project" 
+                        domain="[('project_id', '=', False), ('state', 'in', ['sale', 'done'])]"/>
+                <filter string="Can Create Project" 
+                        name="can_create_project" 
+                        domain="[('can_create_project', '=', True)]"/>
+            </xpath>
+
+            <xpath expr="//group" position="inside">
+                <filter string="Project" 
+                        name="group_project" 
+                        context="{'group_by': 'project_id'}"/>
+            </xpath>
+
+        </field>
+    </record>
+    -->
+
+</odoo>
+

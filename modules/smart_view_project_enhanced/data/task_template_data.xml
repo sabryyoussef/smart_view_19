@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <!-- REQ-00043 Task 51: 4 Standard Task Templates -->
+    
+    <!-- Template 1: تركيب (Installation) -->
+    <record id="task_template_installation" model="project.task.template">
+        <field name="name">تركيب</field>
+        <field name="template_code">installation</field>
+        <field name="sequence">10</field>
+        <field name="priority">2</field>
+        <field name="planned_hours">40.0</field>
+        <field name="description"><![CDATA[
+            <h3>Installation Task</h3>
+            <p>Complete installation of all equipment and systems.</p>
+            <h4>Steps:</h4>
+            <ul>
+                <li>Prepare installation site</li>
+                <li>Install hardware/equipment</li>
+                <li>Connect all systems</li>
+                <li>Verify installation</li>
+            </ul>
+        ]]></field>
+        <field name="active" eval="True"/>
+    </record>
+
+    <!-- Template 2: برمجة (Programming) -->
+    <record id="task_template_programming" model="project.task.template">
+        <field name="name">برمجة</field>
+        <field name="template_code">programming</field>
+        <field name="sequence">20</field>
+        <field name="priority">2</field>
+        <field name="planned_hours">30.0</field>
+        <field name="description"><![CDATA[
+            <h3>Programming Task</h3>
+            <p>Software configuration and programming.</p>
+            <h4>Steps:</h4>
+            <ul>
+                <li>Configure software settings</li>
+                <li>Program control systems</li>
+                <li>Set up automation</li>
+                <li>Test programming</li>
+            </ul>
+        ]]></field>
+        <field name="active" eval="True"/>
+    </record>
+
+    <!-- Template 3: اختبار (Testing) -->
+    <record id="task_template_testing" model="project.task.template">
+        <field name="name">اختبار</field>
+        <field name="template_code">testing</field>
+        <field name="sequence">30</field>
+        <field name="priority">2</field>
+        <field name="planned_hours">20.0</field>
+        <field name="description"><![CDATA[
+            <h3>Testing Task</h3>
+            <p>Complete system testing and quality assurance.</p>
+            <h4>Steps:</h4>
+            <ul>
+                <li>Functional testing</li>
+                <li>Performance testing</li>
+                <li>User acceptance testing</li>
+                <li>Document test results</li>
+            </ul>
+        ]]></field>
+        <field name="active" eval="True"/>
+    </record>
+
+    <!-- Template 4: تسليم نهائي (Final Delivery) -->
+    <record id="task_template_final_delivery" model="project.task.template">
+        <field name="name">تسليم نهائي</field>
+        <field name="template_code">final_delivery</field>
+        <field name="sequence">40</field>
+        <field name="priority">3</field>
+        <field name="planned_hours">10.0</field>
+        <field name="description"><![CDATA[
+            <h3>Final Delivery Task</h3>
+            <p>Final handover and project closure.</p>
+            <h4>Steps:</h4>
+            <ul>
+                <li>Final inspection</li>
+                <li>Client training</li>
+                <li>Documentation handover</li>
+                <li>Project sign-off</li>
+            </ul>
+        ]]></field>
+        <field name="active" eval="True"/>
+    </record>
+
+</odoo>
+

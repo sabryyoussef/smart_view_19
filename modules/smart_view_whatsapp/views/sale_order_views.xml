@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Sales Order Form View - Add WhatsApp Button -->
+    <record id="view_order_form_whatsapp" model="ir.ui.view">
+        <field name="name">sale.order.form.whatsapp</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            
+            <!-- Add Send WhatsApp button in header -->
+            <xpath expr="//header/button[@name='action_quotation_send']" position="after">
+                <button name="action_send_whatsapp" 
+                        string="Send via WhatsApp" 
+                        type="object"
+                        class="btn-primary"
+                        icon="fa-whatsapp"
+                        invisible="not can_send_whatsapp or state in ['cancel']"
+                        help="Send quotation via WhatsApp"/>
+            </xpath>
+
+            <!-- Add WhatsApp smart button -->
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_view_whatsapp_messages" 
+                        type="object" 
+                        class="oe_stat_button" 
+                        icon="fa-whatsapp"
+                        invisible="whatsapp_message_count == 0">
+                    <field name="whatsapp_message_count" widget="statinfo" string="WhatsApp"/>
+                </button>
+            </xpath>
+
+            <!-- Add WhatsApp status fields -->
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="can_send_whatsapp" invisible="1"/>
+                <field name="partner_whatsapp" readonly="1" invisible="not partner_id"/>
+            </xpath>
+
+            <!-- Add WhatsApp sent indicator -->
+            <xpath expr="//field[@name='validity_date']" position="after">
+                <field name="whatsapp_sent" invisible="1"/>
+                <field name="whatsapp_sent_date" 
+                       readonly="1" 
+                       invisible="not whatsapp_sent"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- Sales Order Tree View - Add WhatsApp indicator -->
+    <record id="view_order_tree_whatsapp" model="ir.ui.view">
+        <field name="name">sale.order.tree.whatsapp</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree"/>
+        <field name="arch" type="xml">
+            
+            <xpath expr="//field[@name='amount_total']" position="after">
+                <field name="whatsapp_sent" widget="boolean_toggle" optional="hide"/>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>
+

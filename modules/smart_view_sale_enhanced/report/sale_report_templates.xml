@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- REQ-00023 & REQ-00039: Define Report Actions -->
+    
+    <!-- Standard Quotation Report (with prices) -->
+    <record id="action_report_saleorder_standard" model="ir.actions.report">
+        <field name="name">Quotation / Order (Standard)</field>
+        <field name="model">sale.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">smart_view_sale_enhanced.report_saleorder_document_standard</field>
+        <field name="report_file">smart_view_sale_enhanced.report_saleorder_document_standard</field>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
+        <field name="binding_type">report</field>
+        <field name="print_report_name">'Quotation - %s' % (object.name)</field>
+    </record>
+
+    <!-- Technical Quotation Report (without prices) -->
+    <record id="action_report_saleorder_technical" model="ir.actions.report">
+        <field name="name">Quotation / Order (Technical)</field>
+        <field name="model">sale.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">smart_view_sale_enhanced.report_saleorder_document_technical</field>
+        <field name="report_file">smart_view_sale_enhanced.report_saleorder_document_technical</field>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
+        <field name="binding_type">report</field>
+        <field name="print_report_name">'Technical Quotation - %s' % (object.name)</field>
+    </record>
+
+    <!-- Override default sale report to use dynamic template based on type -->
+    <record id="sale.action_report_saleorder" model="ir.actions.report">
+        <field name="report_name">smart_view_sale_enhanced.report_saleorder_dynamic</field>
+        <field name="report_file">smart_view_sale_enhanced.report_saleorder_dynamic</field>
+    </record>
+
+    <!-- Dynamic template selector -->
+    <template id="report_saleorder_dynamic">
+        <t t-foreach="docs" t-as="doc">
+            <t t-if="doc.quotation_template_type == 'technical'">
+                <t t-call="smart_view_sale_enhanced.report_saleorder_document_technical"/>
+            </t>
+            <t t-else="">
+                <t t-call="smart_view_sale_enhanced.report_saleorder_document_standard"/>
+            </t>
+        </t>
+    </template>
+
+</odoo>
+

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Project Stage Form View Enhancement -->
+    <record id="view_project_stage_form_enhanced" model="ir.ui.view">
+        <field name="name">project.project.stage.form.enhanced</field>
+        <field name="model">project.project.stage</field>
+        <field name="inherit_id" ref="project.project_stage_view_form"/>
+        <field name="arch" type="xml">
+            
+            <!-- Add locked and code fields -->
+            <xpath expr="//field[@name='fold']" position="after">
+                <field name="is_locked" 
+                       help="Locked stages cannot be deleted"/>
+                <field name="stage_code" 
+                       readonly="1"
+                       help="Unique code for standard stages"/>
+            </xpath>
+
+            <!-- Add warning for locked stages -->
+            <xpath expr="//sheet" position="before">
+                <div class="alert alert-warning" 
+                     role="alert" 
+                     invisible="not is_locked">
+                    <i class="fa fa-lock"/> 
+                    <strong>Locked Stage:</strong> 
+                    This is a standard stage and cannot be deleted. 
+                    To delete it, first uncheck 'Locked Stage' (requires system administrator).
+                </div>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- Project Stage Tree View Enhancement -->
+    <record id="view_project_stage_tree_enhanced" model="ir.ui.view">
+        <field name="name">project.project.stage.tree.enhanced</field>
+        <field name="model">project.project.stage</field>
+        <field name="inherit_id" ref="project.project_stage_view_tree"/>
+        <field name="arch" type="xml">
+            
+            <xpath expr="//field[@name='sequence']" position="after">
+                <field name="is_locked" 
+                       widget="boolean_toggle"
+                       optional="show"/>
+                <field name="stage_code" optional="hide"/>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>
+

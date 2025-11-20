@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_res_users_smart_view_user,res.users.smart.view.user,base.model_res_users,group_smart_view_user,1,0,0,0
+access_res_users_smart_view_manager,res.users.smart.view.manager,base.model_res_users,group_smart_view_manager,1,1,1,0
+access_res_groups_smart_view_manager,res.groups.smart.view.manager,base.model_res_groups,group_smart_view_manager,1,1,1,0
+

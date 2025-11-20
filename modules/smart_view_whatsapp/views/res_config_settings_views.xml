@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Add WhatsApp Settings to Sales Configuration -->
+    <record id="res_config_settings_view_form_whatsapp" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.whatsapp</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="sale.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block" data_key="smart_view_whatsapp" string="WhatsApp Integration">
+                    <h2>WhatsApp Notifications</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="auto_notify_so_confirm"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="auto_notify_so_confirm"/>
+                                <div class="text-muted">
+                                    Automatically send WhatsApp notification when Sales Order is confirmed
+                                </div>
+                                <div class="content-group" invisible="not auto_notify_so_confirm">
+                                    <div class="mt16">
+                                        <label for="whatsapp_so_confirm_template" class="o_light_label"/>
+                                        <field name="whatsapp_so_confirm_template" 
+                                               class="oe_inline"
+                                               placeholder="so_confirmation"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="auto_notify_project_create"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="auto_notify_project_create"/>
+                                <div class="text-muted">
+                                    Automatically send WhatsApp notification when Project is created
+                                </div>
+                                <div class="content-group" invisible="not auto_notify_project_create">
+                                    <div class="mt16">
+                                        <label for="whatsapp_project_template" class="o_light_label"/>
+                                        <field name="whatsapp_project_template" 
+                                               class="oe_inline"
+                                               placeholder="project_created"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="auto_notify_payment_received"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="auto_notify_payment_received"/>
+                                <div class="text-muted">
+                                    Automatically send WhatsApp notification when payment is received
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <label string="Quotation Template"/>
+                                <div class="text-muted">
+                                    WhatsApp template name for sending quotations
+                                </div>
+                                <div class="content-group mt16">
+                                    <label for="whatsapp_quotation_template" class="o_light_label"/>
+                                    <field name="whatsapp_quotation_template" 
+                                           class="oe_inline"
+                                           placeholder="quotation_template"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row mt32">
+                        <div class="col-12">
+                            <div class="alert alert-info" role="alert">
+                                <i class="fa fa-info-circle"/> 
+                                <strong>Note:</strong> Make sure to configure WhatsApp instances and templates in 
+                                <a href="/web#action=pragtech_whatsapp_base.action_whatsapp_instance" target="_blank">WhatsApp Settings</a>.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>
+

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <!-- REQ-00043 Task 49: 5 Standard Project Stages -->
+    
+    <!-- Stage 1: دراسة (Study) -->
+    <record id="stage_study" model="project.project.stage">
+        <field name="name">دراسة</field>
+        <field name="stage_code">study</field>
+        <field name="sequence">10</field>
+        <field name="is_locked" eval="True"/>
+        <field name="fold" eval="False"/>
+    </record>
+
+    <!-- Stage 2: توريد (Supply) -->
+    <record id="stage_supply" model="project.project.stage">
+        <field name="name">توريد</field>
+        <field name="stage_code">supply</field>
+        <field name="sequence">20</field>
+        <field name="is_locked" eval="True"/>
+        <field name="fold" eval="False"/>
+    </record>
+
+    <!-- Stage 3: تركيب (Installation) -->
+    <record id="stage_installation" model="project.project.stage">
+        <field name="name">تركيب</field>
+        <field name="stage_code">installation</field>
+        <field name="sequence">30</field>
+        <field name="is_locked" eval="True"/>
+        <field name="fold" eval="False"/>
+    </record>
+
+    <!-- Stage 4: تسليم (Delivery) -->
+    <record id="stage_delivery" model="project.project.stage">
+        <field name="name">تسليم</field>
+        <field name="stage_code">delivery</field>
+        <field name="sequence">40</field>
+        <field name="is_locked" eval="True"/>
+        <field name="fold" eval="False"/>
+    </record>
+
+    <!-- Stage 5: خدمة ما بعد البيع (After-sales Service) -->
+    <record id="stage_after_sales" model="project.project.stage">
+        <field name="name">خدمة ما بعد البيع</field>
+        <field name="stage_code">after_sales</field>
+        <field name="sequence">50</field>
+        <field name="is_locked" eval="True"/>
+        <field name="fold" eval="False"/>
+    </record>
+
+</odoo>
+

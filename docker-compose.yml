@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  web:
+    image: odoo:19.0
+    container_name: odoo19_smartview
+    depends_on:
+      - db
+    ports:
+      - "8070:8069"
+    environment:
+      - HOST=db
+      - USER=odoo
+      - PASSWORD=odoo
+    volumes:
+      # Custom addons
+      - ./modules:/mnt/extra-addons
+      # Odoo data persistence
+      - odoo-web-data:/var/lib/odoo
+      # Configuration file (optional)
+      - ./config:/etc/odoo
+    command: --dev=all --log-level=info
+    restart: unless-stopped
+
+  db:
+    image: postgres:15
+    container_name: postgres_smartview
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_PASSWORD=odoo
+      - POSTGRES_USER=odoo
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - odoo-db-data:/var/lib/postgresql/data/pgdata
+    ports:
+      - "5433:5432"
+    restart: unless-stopped
+
+volumes:
+  odoo-web-data:
+  odoo-db-data:
+

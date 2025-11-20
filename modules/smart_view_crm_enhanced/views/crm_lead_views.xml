@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- CRM Lead Form View Enhancement -->
+    <record id="view_crm_lead_form_enhanced" model="ir.ui.view">
+        <field name="name">crm.lead.form.enhanced</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+        <field name="arch" type="xml">
+            
+            <!-- Add approval buttons in header -->
+            <xpath expr="//header" position="inside">
+                <button name="action_client_approve" 
+                        string="✓ Client Approved" 
+                        type="object"
+                        class="oe_highlight"
+                        invisible="not is_in_approval_stage or client_approval_state == 'approved'"
+                        help="Mark as approved by client"/>
+                <button name="action_client_reject" 
+                        string="✗ Client Rejected" 
+                        type="object"
+                        class="btn-danger"
+                        invisible="not is_in_approval_stage or client_approval_state == 'rejected'"
+                        help="Mark as rejected by client"/>
+            </xpath>
+
+            <!-- Add status badges -->
+            <xpath expr="//widget[@name='web_ribbon']" position="after">
+                <widget name="web_ribbon" 
+                        title="Client Approved" 
+                        bg_color="bg-success"
+                        invisible="client_approval_state != 'approved'"/>
+                <widget name="web_ribbon" 
+                        title="Client Rejected" 
+                        bg_color="bg-danger"
+                        invisible="client_approval_state != 'rejected'"/>
+            </xpath>
+
+            <!-- Add project_location field after partner -->
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="project_location" 
+                       placeholder="e.g., Cairo - New Capital, Building A"
+                       invisible="type == 'lead'"/>
+            </xpath>
+
+            <!-- Add Client Approval section -->
+            <xpath expr="//group[@name='lead_info']" position="after">
+                <group name="approval_info" 
+                       string="Client Approval" 
+                       invisible="not is_in_approval_stage">
+                    <field name="client_approval_state" 
+                           widget="badge"
+                           decoration-success="client_approval_state == 'approved'"
+                           decoration-danger="client_approval_state == 'rejected'"
+                           decoration-warning="client_approval_state == 'pending'"/>
+                    <field name="rejection_date" 
+                           invisible="client_approval_state != 'rejected'"/>
+                    <field name="rejection_reason" 
+                           invisible="client_approval_state != 'rejected'"
+                           nolabel="1"
+                           colspan="2"/>
+                </group>
+            </xpath>
+
+            <!-- Add hidden computed field -->
+            <xpath expr="//field[@name='stage_id']" position="after">
+                <field name="is_in_approval_stage" invisible="1"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- CRM Lead Tree View Enhancement -->
+    <record id="view_crm_lead_tree_enhanced" model="ir.ui.view">
+        <field name="name">crm.lead.tree.enhanced</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_case_tree_view_oppor"/>
+        <field name="arch" type="xml">
+            
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="project_location" optional="show"/>
+                <field name="client_approval_state" 
+                       optional="hide"
+                       widget="badge"
+                       decoration-success="client_approval_state == 'approved'"
+                       decoration-danger="client_approval_state == 'rejected'"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- CRM Lead Kanban View Enhancement - Temporarily disabled for Odoo 19 compatibility -->
+    <!--
+    <record id="view_crm_lead_kanban_enhanced" model="ir.ui.view">
+        <field name="name">crm.lead.kanban.enhanced</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_case_kanban_view_leads"/>
+        <field name="arch" type="xml">
+            
+            <xpath expr="//div[hasclass('oe_kanban_details')]" position="inside">
+                <div class="o_kanban_record_subtitle" invisible="not project_location">
+                    <i class="fa fa-map-marker"/> <field name="project_location"/>
+                </div>
+            </xpath>
+
+            <xpath expr="//div[hasclass('oe_kanban_bottom_right')]" position="inside">
+                <span class="badge badge-success" 
+                      invisible="client_approval_state != 'approved'"
+                      title="Client Approved">
+                    <i class="fa fa-check"/> Approved
+                </span>
+                <span class="badge badge-danger" 
+                      invisible="client_approval_state != 'rejected'"
+                      title="Client Rejected">
+                    <i class="fa fa-times"/> Rejected
+                </span>
+                <span class="badge badge-warning" 
+                      invisible="client_approval_state != 'pending'"
+                      title="Pending Approval">
+                    <i class="fa fa-clock-o"/> Pending
+                </span>
+            </xpath>
+
+            <xpath expr="//field[@name='stage_id']" position="after">
+                <field name="project_location"/>
+                <field name="client_approval_state"/>
+                <field name="is_in_approval_stage"/>
+            </xpath>
+
+        </field>
+    </record>
+    -->
+
+    <!-- Search View Enhancement - Temporarily disabled for Odoo 19 compatibility -->
+    <!--
+    <record id="view_crm_lead_search_enhanced" model="ir.ui.view">
+        <field name="name">crm.lead.search.enhanced</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.view_crm_case_opportunities_filter"/>
+        <field name="arch" type="xml">
+            
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="project_location"/>
+            </xpath>
+
+            <xpath expr="//filter[@name='won']" position="after">
+                <separator/>
+                <filter string="Client Approved" 
+                        name="client_approved" 
+                        domain="[('client_approval_state', '=', 'approved')]"/>
+                <filter string="Client Rejected" 
+                        name="client_rejected" 
+                        domain="[('client_approval_state', '=', 'rejected')]"/>
+                <filter string="Pending Approval" 
+                        name="pending_approval" 
+                        domain="[('client_approval_state', '=', 'pending')]"/>
+                <separator/>
+                <filter string="In Approval Stage" 
+                        name="in_approval_stage" 
+                        domain="[('is_in_approval_stage', '=', True)]"/>
+            </xpath>
+
+            <xpath expr="//group" position="inside">
+                <filter string="Approval Status" 
+                        name="group_approval_status" 
+                        context="{'group_by': 'client_approval_state'}"/>
+            </xpath>
+
+        </field>
+    </record>
+    -->
+
+</odoo>
+

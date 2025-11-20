@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <!-- REQ-00018: Custom Security Groups -->
+    
+    <!-- Settings Access Group -->
+    <record id="group_settings_access" model="res.groups">
+        <field name="name">Settings Access</field>
+        <field name="comment">Users in this group have full access to system settings and configurations.</field>
+        <field name="implied_ids" eval="[(4, ref('base.group_system'))]"/>
+    </record>
+
+    <!-- Enhanced Administrator Group -->
+    <record id="group_enhanced_admin" model="res.groups">
+        <field name="name">Enhanced Administrator</field>
+        <field name="comment">Enhanced administrative privileges for key users.</field>
+        <field name="implied_ids" eval="[(4, ref('base.group_system')), (4, ref('group_settings_access'))]"/>
+    </record>
+
+    <!-- Smart View Manager Group -->
+    <record id="group_smart_view_manager" model="res.groups">
+        <field name="name">Smart View Manager</field>
+        <field name="comment">Managers with access to all Smart View customizations.</field>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <!-- Smart View User Group -->
+    <record id="group_smart_view_user" model="res.groups">
+        <field name="name">Smart View User</field>
+        <field name="comment">Basic access to Smart View features.</field>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+</odoo>
+

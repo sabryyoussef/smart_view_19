@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- User Form View Enhancement -->
+    <record id="view_users_form_smart_view" model="ir.ui.view">
+        <field name="name">res.users.form.smart.view</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            
+            <!-- Add Smart View buttons -->
+            <xpath expr="//header" position="inside">
+                <button name="grant_settings_access" 
+                        string="Grant Settings Access" 
+                        type="object" 
+                        class="btn-primary"
+                        groups="base.group_system"
+                        invisible="not id"/>
+                <button name="revoke_settings_access" 
+                        string="Revoke Settings Access" 
+                        type="object" 
+                        class="btn-warning"
+                        groups="base.group_system"
+                        invisible="not id"/>
+            </xpath>
+
+            <!-- Add Smart View tab -->
+            <xpath expr="//notebook" position="inside">
+                <page string="Smart View" name="smart_view" groups="base.group_system">
+                    <group>
+                        <group>
+                            <field name="smart_view_access_level"/>
+                            <field name="is_smart_view_manager" readonly="1"/>
+                        </group>
+                        <group>
+                            <!-- Placeholder for additional fields -->
+                        </group>
+                    </group>
+                    <group string="Notes">
+                        <field name="smart_view_notes" nolabel="1" placeholder="Internal notes about Smart View permissions..."/>
+                    </group>
+                    <group string="Smart View Groups">
+                        <p>
+                            <b>Available Groups:</b><br/>
+                            • <i>Smart View User</i>: Basic access to Smart View features<br/>
+                            • <i>Smart View Manager</i>: Full access to Smart View modules<br/>
+                            • <i>Settings Access</i>: Full system settings access<br/>
+                            • <i>Enhanced Administrator</i>: Complete administrative access<br/>
+                        </p>
+                    </group>
+                </page>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- User Tree View Enhancement -->
+    <record id="view_users_tree_smart_view" model="ir.ui.view">
+        <field name="name">res.users.tree.smart.view</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_tree"/>
+        <field name="arch" type="xml">
+            
+            <xpath expr="//field[@name='login']" position="after">
+                <field name="smart_view_access_level" optional="hide"/>
+                <field name="is_smart_view_manager" optional="hide"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- Smart View Users Action -->
+    <record id="action_smart_view_users" model="ir.actions.act_window">
+        <field name="name">Smart View Users</field>
+        <field name="res_model">res.users</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('share', '=', False)]</field>
+        <field name="context">{'search_default_smart_view_users': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Manage Smart View user permissions
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu (optional - under Settings) -->
+    <menuitem id="menu_smart_view_users"
+              name="Smart View Users"
+              parent="base.menu_users"
+              action="action_smart_view_users"
+              sequence="100"
+              groups="base.group_system"/>
+
+</odoo>
+

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <!-- REQ-00038: New CRM Pipeline Stages -->
+    
+    <!-- Stage: Site Visit -->
+    <record id="stage_site_visit" model="crm.stage">
+        <field name="name">Site Visit</field>
+        <field name="sequence">15</field>
+        <field name="is_site_visit_stage" eval="True"/>
+        <field name="is_won" eval="False"/>
+        <field name="fold" eval="False"/>
+        <field name="requirements">Schedule and conduct site visit with client</field>
+    </record>
+
+    <!-- Stage: Technical Description -->
+    <record id="stage_technical_description" model="crm.stage">
+        <field name="name">Technical Description</field>
+        <field name="sequence">20</field>
+        <field name="is_technical_stage" eval="True"/>
+        <field name="is_won" eval="False"/>
+        <field name="fold" eval="False"/>
+        <field name="requirements">Prepare and present technical description to client</field>
+    </record>
+
+    <!-- Stage: Client Approval -->
+    <record id="stage_client_approval" model="crm.stage">
+        <field name="name">Client Approval</field>
+        <field name="sequence">25</field>
+        <field name="is_approval_stage" eval="True"/>
+        <field name="is_won" eval="False"/>
+        <field name="fold" eval="False"/>
+        <field name="requirements">Waiting for client approval decision</field>
+    </record>
+
+</odoo>
+

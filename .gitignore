@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+
+# Virtual Environment
+.venv/
+venv/
+ENV/
+
+# Odoo
+*.log
+filestore/
+sessions/
+
+# Docker
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Odoo 19 source (too large)
+odoo19/
+
+# Third-party modules with sensitive data
+modules/pragtech_whatsapp_base/
+
+# Config and temporary files
+odoo_conf/
+config/
+*.pyc
+

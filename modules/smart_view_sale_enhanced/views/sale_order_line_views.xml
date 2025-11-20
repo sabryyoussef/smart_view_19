@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <!-- Sale Order Line Form View - Enhanced -->
+    <record id="view_order_line_form_enhanced" model="ir.ui.view">
+        <field name="name">sale.order.line.form.enhanced</field>
+        <field name="model">sale.order.line</field>
+        <field name="inherit_id" ref="sale.view_order_line_form"/>
+        <field name="arch" type="xml">
+            
+            <!-- REQ-00021: Add Internal Reference -->
+            <xpath expr="//field[@name='product_id']" position="after">
+                <field name="product_internal_ref" readonly="1"/>
+            </xpath>
+
+            <!-- REQ-00024: Show Discount Amount -->
+            <xpath expr="//field[@name='discount']" position="after">
+                <field name="discount_amount" 
+                       widget="monetary"
+                       options="{'currency_field': 'currency_id'}"
+                       readonly="1"
+                       attrs="{'invisible': [('discount', '=', 0)]}"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- Sale Order Line Tree View (in SO form) - Enhanced -->
+    <record id="view_order_form_line_tree_enhanced" model="ir.ui.view">
+        <field name="name">sale.order.form.line.tree.enhanced</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            
+            <!-- REQ-00021: Add Internal Reference column -->
+            <xpath expr="//field[@name='order_line']//tree//field[@name='product_id']" position="after">
+                <field name="product_internal_ref" optional="show" string="Ref"/>
+            </xpath>
+
+            <!-- REQ-00024: Enhance discount visibility -->
+            <xpath expr="//field[@name='order_line']//tree//field[@name='discount']" position="attributes">
+                <attribute name="optional">show</attribute>
+            </xpath>
+
+            <!-- Add discount amount column -->
+            <xpath expr="//field[@name='order_line']//tree//field[@name='discount']" position="after">
+                <field name="discount_amount" 
+                       optional="hide"
+                       widget="monetary"
+                       options="{'currency_field': 'currency_id'}"
+                       attrs="{'invisible': [('discount', '=', 0)]}"/>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>
+

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <!-- Sale Order Form View - Enhanced -->
+    <record id="view_order_form_enhanced" model="ir.ui.view">
+        <field name="name">sale.order.form.enhanced</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            
+            <!-- REQ-00017: Add Quotation Create Date -->
+            <xpath expr="//field[@name='date_order']" position="after">
+                <field name="quotation_create_date" 
+                       invisible="state in ['sale', 'done', 'cancel']"/>
+            </xpath>
+
+            <!-- REQ-00023: Add Quotation Template Type -->
+            <xpath expr="//field[@name='validity_date']" position="after">
+                <field name="quotation_template_type"
+                       invisible="state in ['sale', 'done', 'cancel']"/>
+            </xpath>
+
+            <!-- REQ-00026: Add Payment Validation -->
+            <xpath expr="//field[@name='payment_term_id']" position="after">
+                <field name="payment_validated" 
+                       invisible="state != 'pending_payment'"/>
+            </xpath>
+
+            <!-- REQ-00026: Add action buttons in header -->
+            <xpath expr="//button[@name='action_confirm']" position="before">
+                <button name="action_set_pending_payment" 
+                        string="Request Payment" 
+                        type="object" 
+                        class="btn-primary"
+                        invisible="state not in ['draft', 'sent']"/>
+                <button name="action_validate_payment" 
+                        string="Validate Payment" 
+                        type="object" 
+                        class="btn-success"
+                        groups="sales_team.group_sale_manager"
+                        invisible="state != 'pending_payment'"/>
+            </xpath>
+
+            <!-- Modify confirm button visibility -->
+            <xpath expr="//button[@name='action_confirm']" position="attributes">
+                <attribute name="invisible">state not in ['sent', 'draft'] or (state == 'pending_payment' and not payment_validated)</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>
