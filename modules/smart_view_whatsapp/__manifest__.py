@@ -34,11 +34,11 @@
     'website': 'https://www.smartview.com',
     'license': 'LGPL-3',
     'depends': [
-        'pragtech_whatsapp_base',      # WhatsApp infrastructure
+        # 'pragtech_whatsapp_base',      # WhatsApp infrastructure - Install separately if needed
         'sale_management',              # Sales orders
-        'smart_view_sale_enhanced',    # Our enhanced sales
-        'smart_view_crm_enhanced',     # CRM notifications
-        'smart_view_project_sale',     # Project creation notifications
+        # 'smart_view_sale_enhanced',    # Our enhanced sales - Enable after sale_enhanced is stable
+        # 'smart_view_crm_enhanced',     # CRM notifications - Enable after crm_enhanced is stable
+        # 'smart_view_project_sale',     # Project creation notifications - Enable after project_sale is stable
     ],
     'data': [
         # Security
@@ -57,7 +57,7 @@
     ],
     'demo': [],
     'images': ['static/description/icon.png'],
-    'installable': True,
+    'installable': False,  # Requires pragtech_whatsapp_base - Install separately
     'application': False,
     'auto_install': False,
 }
