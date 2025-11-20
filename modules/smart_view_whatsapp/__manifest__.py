@@ -49,11 +49,11 @@
         'data/automated_actions.xml',
         
         # Views
-        'views/sale_order_views.xml',
+        # 'views/sale_order_views.xml',  # Disabled - Module not installable without pragtech_whatsapp_base
         # 'views/res_config_settings_views.xml',  # Temporarily disabled - Odoo 19 compatibility
         
         # Wizards
-        'wizard/send_whatsapp_wizard_views.xml',
+        # 'wizard/send_whatsapp_wizard_views.xml',  # Disabled - Module not installable without pragtech_whatsapp_base
     ],
     'demo': [],
     'images': ['static/description/icon.png'],
