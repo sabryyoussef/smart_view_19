@@ -22,8 +22,9 @@
         Note: This module is optional but provides shared functionality
         for other Smart View modules. Install first if using multiple modules.
     """,
-    'author': 'Smart View Development Team',
-    'website': 'https://www.smartview.com',
+    'author': 'Sabry Youssef',
+    'maintainer': 'Sabry Youssef',
+    'website': 'mailto:vendorah2@gmail.com',
     'license': 'LGPL-3',
     'depends': [
         'base',

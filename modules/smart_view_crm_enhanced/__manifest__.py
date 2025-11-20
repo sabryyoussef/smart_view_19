@@ -21,8 +21,9 @@
         * REQ-00037: Lead Custom Field (project_location)
         * REQ-00038: New Pipeline Stages with approval workflow
     """,
-    'author': 'Smart View Development Team',
-    'website': 'https://www.smartview.com',
+    'author': 'Sabry Youssef',
+    'maintainer': 'Sabry Youssef',
+    'website': 'mailto:vendorah2@gmail.com',
     'license': 'LGPL-3',
     'depends': [
         'crm',

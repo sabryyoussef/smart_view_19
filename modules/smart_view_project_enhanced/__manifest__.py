@@ -33,8 +33,9 @@
           - Task 51: Create 4 task templates
           - Task 52: Auto-generate tasks
     """,
-    'author': 'Smart View Development Team',
-    'website': 'https://www.smartview.com',
+    'author': 'Sabry Youssef',
+    'maintainer': 'Sabry Youssef',
+    'website': 'mailto:vendorah2@gmail.com',
     'license': 'LGPL-3',
     'depends': [
         'project',

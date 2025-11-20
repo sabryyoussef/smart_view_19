@@ -30,8 +30,9 @@
         * REQ-00026: Pre-Confirmation State
         * REQ-00039: Technical Quotation Template
     """,
-    'author': 'Smart View Development Team',
-    'website': 'https://www.smartview.com',
+    'author': 'Sabry Youssef',
+    'maintainer': 'Sabry Youssef',
+    'website': 'mailto:vendorah2@gmail.com',
     'license': 'LGPL-3',
     'depends': [
         'sale_management',

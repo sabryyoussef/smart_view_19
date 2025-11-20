@@ -25,8 +25,9 @@
           - Task 47: Create from template
           - Task 48: Enhanced SO-Project linking
     """,
-    'author': 'Smart View Development Team',
-    'website': 'https://www.smartview.com',
+    'author': 'Sabry Youssef',
+    'maintainer': 'Sabry Youssef',
+    'website': 'mailto:vendorah2@gmail.com',
     'license': 'LGPL-3',
     'depends': [
         'sale_management',

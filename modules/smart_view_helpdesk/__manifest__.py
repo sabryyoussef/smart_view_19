@@ -19,8 +19,9 @@
         
         Note: This is a wrapper module that depends on OCA's helpdesk_mgmt.
     """,
-    'author': 'Smart View Development Team',
-    'website': 'https://www.smartview.com',
+    'author': 'Sabry Youssef',
+    'maintainer': 'Sabry Youssef',
+    'website': 'mailto:vendorah2@gmail.com',
     'license': 'LGPL-3',
     'depends': [
         'helpdesk_mgmt',  # OCA Helpdesk Management

@@ -30,8 +30,9 @@
         * Integrates: smart_view_crm_enhanced
         * Integrates: smart_view_project_sale
     """,
-    'author': 'Smart View Development Team',
-    'website': 'https://www.smartview.com',
+    'author': 'Sabry Youssef',
+    'maintainer': 'Sabry Youssef',
+    'website': 'mailto:vendorah2@gmail.com',
     'license': 'LGPL-3',
     'depends': [
         # 'pragtech_whatsapp_base',      # WhatsApp infrastructure - Install separately if needed
